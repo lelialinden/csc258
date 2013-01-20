@@ -1,8 +1,8 @@
 module part4 (SW, HEX0);
-  input [2:0] SW;
+  input [17:0] SW;
   output [0:6] HEX0;
   
-  char_7seg(SW, HEX0);
+  char_7seg(SW[2:0], HEX0);
 endmodule
 
 module char_7seg (C, Display);
