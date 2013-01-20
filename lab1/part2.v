@@ -1,22 +1,20 @@
-module part2(SW, LEDR)
+module part2(SW, LEDR, LEDG);
   input [17:0]SW;    // toggle switches
   output [17:0]LEDR; // red LEDs
+  output [7:0]LEDG;  // green LEDs
+  assign LEDR = SW;
   
-  assign s = SW[17];
-  
-  assign m = [7:0]LEDG;
-  
-  mux(s, x[7], y[7], m[7]);
-  mux(s, x[6], y[6], m[6]);
-  mux(s, x[5], y[5], m[5]);
-  mux(s, x[4], y[4], m[4]);
-  mux(s, x[3], y[3], m[3]);
-  mux(s, x[2], y[2], m[2]);
-  mux(s, x[1], y[1], m[1]);
-  mux(s, x[0], y[0], m[0]);
+  mux(SW[17], SW[7], SW[15], LEDG[7]);
+  mux(SW[17], SW[6], SW[14], LEDG[6]);
+  mux(SW[17], SW[5], SW[13], LEDG[5]);
+  mux(SW[17], SW[4], SW[12], LEDG[4]);
+  mux(SW[17], SW[3], SW[11], LEDG[3]);
+  mux(SW[17], SW[2], SW[10], LEDG[2]);
+  mux(SW[17], SW[1], SW[9], LEDG[1]);
+  mux(SW[17], SW[0], SW[8], LEDG[0]);
 endmodule
 
-module mux(s, x, y, m)
+module mux(s, x, y, m);
   input s, x, y;
   output m;
   
