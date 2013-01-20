@@ -16,15 +16,15 @@ module mux_3bit_5to1 (S, U, V, W, X, Y, M)
   mux_5to1(S, U[0], V[0], W[0], X[0], Y[0], M[0]);
 endmodule  
 
-module mux_5to1 (s, u, v, w, x, y, m);
-  input [2:0] s;
+module mux_5to1 (S, u, v, w, x, y, m);
+  input [2:0] S;
   input u, v, w, x, y;
   output m;
   
-  mux_2to1(s[0], u, v, out1);
-  mux_2to1(s[0], w, x, out2);
-  mux_2to1(s[1], out1, out2, out3);
-  mux_2to1(s[2], out3, y, m);
+  mux_2to1(S[0], u, v, out1);
+  mux_2to1(S[0], w, x, out2);
+  mux_2to1(S[1], out1, out2, out3);
+  mux_2to1(S[2], out3, y, m);
 endmodule
 
 module mux_2to1(s, x, y, m);
