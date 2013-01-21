@@ -1,20 +1,20 @@
-module part2(SW, LEDR, LEDG);
+module part2 (SW, LEDR, LEDG);
   input [17:0]SW;    // toggle switches
   output [17:0]LEDR; // red LEDs
   output [7:0]LEDG;  // green LEDs
   assign LEDR = SW;
   
-  two_to_one_mux(SW[17], SW[7], SW[15], LEDG[7]);
-  two_to_one_mux(SW[17], SW[6], SW[14], LEDG[6]);
-  two_to_one_mux(SW[17], SW[5], SW[13], LEDG[5]);
-  two_to_one_mux(SW[17], SW[4], SW[12], LEDG[4]);
-  two_to_one_mux(SW[17], SW[3], SW[11], LEDG[3]);
-  two_to_one_mux(SW[17], SW[2], SW[10], LEDG[2]);
-  two_to_one_mux(SW[17], SW[1], SW[9], LEDG[1]);
-  two_to_one_mux(SW[17], SW[0], SW[8], LEDG[0]);
+  mux_2to1(SW[17], SW[7], SW[15], LEDG[7]);
+  mux_2to1(SW[17], SW[6], SW[14], LEDG[6]);
+  mux_2to1(SW[17], SW[5], SW[13], LEDG[5]);
+  mux_2to1(SW[17], SW[4], SW[12], LEDG[4]);
+  mux_2to1(SW[17], SW[3], SW[11], LEDG[3]);
+  mux_2to1(SW[17], SW[2], SW[10], LEDG[2]);
+  mux_2to1(SW[17], SW[1], SW[9], LEDG[1]);
+  mux_2to1(SW[17], SW[0], SW[8], LEDG[0]);
 endmodule
 
-module two_to_one_mux(s, x, y, m);
+module mux_2to1 (s, x, y, m);
   input s, x, y;
   output m;
   
