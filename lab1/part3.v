@@ -7,7 +7,7 @@ module part3(SW, LEDR, LEDG);
   mux_3bit_5to1(SW[17:15], SW[14:12], SW[11:9], SW[8:6], SW[5:3], SW[2:0], LEDG[2:0]);
 endmodule
   
-module mux_3bit_5to1 (S, U, V, W, X, Y, M)
+module mux_3bit_5to1 (S, U, V, W, X, Y, M);
   input [2:0] S, U, V, W, X, Y;
   output [2:0] M;
   
