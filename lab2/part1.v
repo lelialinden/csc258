@@ -3,8 +3,8 @@ module part1 (SW, HEX1, HEX0);
   output [6:0] HEX1;
   output [6:0] HEX0;
 
-  wire [3:0] v;
-  wire [3:0] m;	 
+  wire [3:0] V;
+  wire [3:0] M;	 
 endmodule
 
 
