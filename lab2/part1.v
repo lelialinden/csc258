@@ -2,13 +2,27 @@ module part1 (SW, HEX1, HEX0);
   input [3:0] SW;
   output [6:0] HEX1;
   output [6:0] HEX0;
-
+  
   wire [3:0] V;
-  wire [3:0] M;	 
+  wire [3:0] M;
+  wire [2:0] W;
+  wire z;
+  
+  assign V = SW;
+  
+  comparator (V, z);
+  char_7seg (M, HEX0);
+  circuit_A ([2:0] V, W);
+  circuit_B (z, HEX1);
+  
+  mux_2to1 (z, V[3], 0, M[3]);
+  mux_2to1 (z, V[2], W[2], M[2]);
+  mux_2to1 (z, V[1], W[1], M[1]);
+  mux_2to1 (z, V[0], W[0], M[0]);
 endmodule
 
 
-module 7seg_decoder (M, Display);
+module char_7seg (M, Display);
   input [3:0] M;
   output [6:0] Display;
   
