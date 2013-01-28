@@ -2,18 +2,24 @@ module part1 (SW, HEX1, HEX0);
   input [3:0] SW;
   output [6:0] HEX1;
   output [6:0] HEX0;
+
+  BCD_conversion_circuit(SW, HEX1, HEX0);
+endmodule
+
+
+module BCD_conversion_circuit (V, Display1, Display0);
+  input [3:0] V;
+  output [6:0] Display1;
+  output [6:0] Display0;
   
-  wire [3:0] V;
   wire [3:0] M;
   wire [2:0] W;
   wire z;
   
-  assign V = SW;
-  
-  comparator (V, z);
-  char_7seg (M, HEX0);
+  comparator_gt9 (V, z);
+  char_7seg (M, Display0);
   circuit_A (V[2:0], W);
-  circuit_B (z, HEX1);
+  circuit_B (z, Display1);
   
   mux_2to1 (z, V[3], 0, M[3]);
   mux_2to1 (z, V[2], W[2], M[2]);
@@ -36,7 +42,7 @@ module char_7seg (M, Display);
 endmodule
 
 
-module comparator (V, z);
+module comparator_gt9 (V, z);
   // Checks if the value of V is greater than 9
   input [3:0] V;
   output z;
