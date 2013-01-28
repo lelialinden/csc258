@@ -3,23 +3,26 @@ module part1 (SW, HEX1, HEX0);
   output [6:0] HEX1;
   output [6:0] HEX0;
 
-  BCD_conversion_circuit(SW, HEX1, HEX0);
+  BCD_conversion_circuit(SW, d1, d0);
+  
+  decoder_7seg(d1, HEX1);
+  decoder_7seg(d0, HEX0);
 endmodule
 
 
-module BCD_conversion_circuit (V, Display1, Display0);
+module BCD_conversion_circuit (V, d1, d0);
   input [3:0] V;
-  output [6:0] Display1;
-  output [6:0] Display0;
+  output [3:0] d1;
+  output [3:0] d0;
   
   wire [3:0] M;
   wire [2:0] W;
   wire z;
   
+  assign d0 = M;
   comparator_gt9 (V, z);
-  char_7seg (M, Display0);
   circuit_A (V[2:0], W);
-  circuit_B (z, Display1);
+  circuit_B (z, d1);
   
   mux_2to1 (z, V[3], 0, M[3]);
   mux_2to1 (z, V[2], W[2], M[2]);
@@ -28,7 +31,7 @@ module BCD_conversion_circuit (V, Display1, Display0);
 endmodule
 
 
-module char_7seg (M, Display);
+module decoder_7seg (M, Display);
   input [3:0] M;
   output [6:0] Display;
   
@@ -61,17 +64,14 @@ module circuit_A (V, W);
 endmodule
 
 
-module circuit_B (z, Display);
+module circuit_B (z, U);
   input z;
-  output [6:0] Display;
+  output [3:0] U;
   
-  assign Display[0] = ~z;
-  assign Display[1] = 1;
-  assign Display[2] = 1;
-  assign Display[3] = ~z;
-  assign Display[4] = ~z;
-  assign Display[5] = ~z;
-  assign Display[6] = 0;
+  assign U[0] = z;
+  assign U[1] = 0;
+  assign U[2] = 0;
+  assign U[3] = 0;
 endmodule
 
 
