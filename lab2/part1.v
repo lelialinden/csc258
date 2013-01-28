@@ -31,10 +31,11 @@ endmodule
 
 
 module comparator (V, z);
+  // Checks if the value of V is greater than 9
   input [3:0] V;
   output z;
   
-  // Checks if the value of V is greater than 9
+  assign z = V[3] & V[2] | V[3] & V[1];
 endmodule
 
 
