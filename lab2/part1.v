@@ -12,7 +12,7 @@ module part1 (SW, HEX1, HEX0);
   
   comparator (V, z);
   char_7seg (M, HEX0);
-  circuit_A ([2:0] V, W);
+  circuit_A (V[2:0], W);
   circuit_B (z, HEX1);
   
   mux_2to1 (z, V[3], 0, M[3]);
@@ -29,9 +29,9 @@ module char_7seg (M, Display);
   assign Display[0] = (M[1] & ~M[3]) | (~M[0] & ~M[2]) | (~M[3] & M[0]);
   assign Display[1] = ~M[2] | (M[1] ^~ M[0]);
   assign Display[2] = M[2] | M[0] | ~M[1];
-  assign Display[3] = (~M[2] & ~M[0] | M[1])) | (M[1] & ~M[0]) | (M[0] & ~M[1] & M[2]);
+  assign Display[3] = (~M[2] & ~M[0] | M[1]) | (M[1] & ~M[0]) | (M[0] & ~M[1] & M[2]);
   assign Display[4] = (~M[2] & ~M[0]) | (M[1] & ~M[0]);
-  assign Display[5] = M[3] | (~M[1] & ~M[0]) | (~M[3] & M[2] & (M[1] ~& M[0]));
+  assign Display[5] = M[3] | (~M[1] & ~M[0]) | (M[2] & (~M[0] | ~M[1]));
   assign Display[6] = M[3] | (M[2] ^ M[1]) | (M[1] & ~M[0]);
 endmodule
 
@@ -49,8 +49,9 @@ module circuit_A (V, W);
   input [2:0] V;
   output [2:0] W;
   
-  // If comparator output is 1, then this determines
-  // what value is set as the first BCD digit.
+  assign W[2] = V[2] & V[1];
+  assign W[1] = V[2] & ~V[1];
+  assign W[0] = V[0];
 endmodule
 
 
