@@ -2,16 +2,22 @@ module part4 (SW, LEDR, LEDG, HEX6, HEX4, HEX1, HEX0);
   input [8:0] SW;
   output [8:0] LEDR;
   output [8:0] LEDG;
-  output [6:0] HEX6; 
+  output [6:0] HEX6;
   output [6:0] HEX4;
   output [6:0] HEX1;
   output [6:0] HEX0;
   wire [3:0] A;
   wire [3:0] B;
+  wire [3:0] d1;
+  wire [3:0] d0;
+  wire [3:0] S;
+  wire c_out;
   
   assign LEDR = SW;
   assign A[3:0] = SW[7:4];
   assign B[3:0] = SW[3:0];
+  assign LEDG[4] = c_out;
+  assign LEDG[3:0] = S;
   
   comparator_gt9 (A, e1);
   comparator_gt9 (B, e2);
@@ -79,17 +85,16 @@ endmodule
 
 
 module decoder_7seg (M, Display);
-  // Displays a 4-bit binary number representing a digit.
   input [3:0] M;
   output [6:0] Display;
   
-  assign Display[0] = (M[1] & ~M[3]) | (~M[0] & ~M[2]) | (~M[3] & M[0]);
-  assign Display[1] = ~M[2] | (M[1] ^~ M[0]);
-  assign Display[2] = M[2] | M[0] | ~M[1];
-  assign Display[3] = (~M[2] & ~M[0] | M[1]) | (M[1] & ~M[0]) | (M[0] & ~M[1] & M[2]);
-  assign Display[4] = (~M[2] & ~M[0]) | (M[1] & ~M[0]);
-  assign Display[5] = M[3] | (~M[1] & ~M[0]) | (M[2] & (~M[0] | ~M[1]));
-  assign Display[6] = M[3] | (M[2] ^ M[1]) | (M[1] & ~M[0]);
+  assign Display[0] = (M[2] & ~M[1] & ~M[0]) | (~M[3] & ~M[2] & ~M[1] & M[0]);
+  assign Display[1] = (M[2] & ~M[1] & M[0]) | (M[2] & M[1] & ~M[0]);
+  assign Display[2] = ~M[3] & ~M[2] & M[1] & ~M[0];
+  assign Display[3] = (M[2] & M[1] & M[0]) | (~M[2] & ~M[1] & M[0]) | (M[2] & ~M[1] & ~M[0]);
+  assign Display[4] = (M[2] & M[0]) | (~M[1] & M[0]) | (M[2] & ~M[1]) | (~M[3] & M[0]);
+  assign Display[5] = (M[1] & M[0]) | (~M[3] & ~M[2] & M[0]) | (~M[3] & ~M[2] & M[1]);
+  assign Display[6] = (M[2] & M[1] & M[0]) | (~M[3] & ~M[2] & ~M[1]);
 endmodule
 
 
