@@ -1,9 +1,15 @@
-module part1 (SW, HEX1, HEX0);
-  input [3:0] SW;
+module part1 (SW, LEDR, HEX1, HEX0);
+  input [17:0] SW;
+  output [17:0] LEDR;
   output [6:0] HEX1;
   output [6:0] HEX0;
-
-  BCD_conversion_circuit(SW, d1, d0);
+  
+  wire [3:0] d1;
+  wire [3:0] d0;
+  
+  assign LEDR = SW;
+  
+  BCD_conversion_circuit(SW[3:0], d1, d0);
   
   decoder_7seg(d1, HEX1);
   decoder_7seg(d0, HEX0);
@@ -14,7 +20,6 @@ module BCD_conversion_circuit (V, d1, d0);
   input [3:0] V;
   output [3:0] d1;
   output [3:0] d0;
-  
   wire [3:0] M;
   wire [2:0] W;
   wire z;
@@ -35,13 +40,13 @@ module decoder_7seg (M, Display);
   input [3:0] M;
   output [6:0] Display;
   
-  assign Display[0] = (M[1] & ~M[3]) | (~M[0] & ~M[2]) | (~M[3] & M[0]);
-  assign Display[1] = ~M[2] | (M[1] ^~ M[0]);
-  assign Display[2] = M[2] | M[0] | ~M[1];
-  assign Display[3] = (~M[2] & ~M[0] | M[1]) | (M[1] & ~M[0]) | (M[0] & ~M[1] & M[2]);
-  assign Display[4] = (~M[2] & ~M[0]) | (M[1] & ~M[0]);
-  assign Display[5] = M[3] | (~M[1] & ~M[0]) | (M[2] & (~M[0] | ~M[1]));
-  assign Display[6] = M[3] | (M[2] ^ M[1]) | (M[1] & ~M[0]);
+  assign Display[0] = (M[2] & ~M[1] & ~M[0]) | (~M[3] & ~M[2] & ~M[1] & M[0]);
+  assign Display[1] = (M[2] & ~M[1] & M[0]) | (M[2] & M[1] & ~M[0]);
+  assign Display[2] = ~M[3] & ~M[2] & M[1] & ~M[0];
+  assign Display[3] = (M[2] & M[1] & M[0]) | (~M[2] & ~M[1] & M[0]) | (M[2] & ~M[1] & ~M[0]);
+  assign Display[4] = (M[2] & M[0]) | (~M[1] & M[0]) | (M[2] & ~M[1]) | (~M[3] & M[0]);
+  assign Display[5] = (M[1] & M[0]) | (~M[3] & ~M[2] & M[0]) | (~M[3] & ~M[2] & M[1]);
+  assign Display[6] = (M[2] & M[1] & M[0]) | (~M[3] & ~M[2] & ~M[1]);
 endmodule
 
 
