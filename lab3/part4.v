@@ -3,6 +3,7 @@ module part4 (SW, LEDR);
   input [17:0] LEDR;
   
   gated_D_latch(SW[1], SW[0], LEDR[0]);
+  
 endmodule
 
 // A gated D latch

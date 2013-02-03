@@ -5,6 +5,7 @@ module part6 (SW, LEDR);
   D_latch(SW[1], SW[0], LEDR[2]);
   pos_triggered_D_flipflop(SW[1], SW[0], LEDR[1]);
   neg_triggered_D_flipflop(SW[1], SW[0], LEDR[0]);
+  
 endmodule
 
 
