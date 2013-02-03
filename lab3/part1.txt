@@ -1,0 +1,14 @@
+1. Suppose we turned on the latch with en=1 and d=0. What would be the value of the latch's output q?
+Answer: The value of the latch's output q would be 0.
+
+2. Now suppose we, after doing that step above, switched en=0. What value for q would the latch have?
+Answer: The value for q would still be 0, since the previous q value that the D latch had was 0.
+
+3. And now, after that step, suppose we switched d=1. What value for q would the latch have?
+Answer: The value for q would still be 0, since the previous q value that the D latch had was 0.
+
+4. Now after that step, suppose we switched en=1. What value for q would the latch have?
+Answer: The value for q would now be 1.
+
+5. Lastly, after that, suppose we switched en=0. What value for q would the latch have?
+Answer: The value for q would still be 1, since the previous q value that the D latch had was 1.
