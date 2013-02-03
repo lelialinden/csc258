@@ -1,0 +1,2 @@
+The /Q output is simply the compliment of Q.
+Source: http://en.wikibooks.org/wiki/Practical_Electronics/Flip-flops
